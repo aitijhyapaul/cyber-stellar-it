@@ -1,5 +1,5 @@
 // Stellar API wrapper — talks to the ERP SaaS backend
-const STELLAR_API_BASE = window.STELLAR_API_BASE || 'http://localhost:8080';
+const STELLAR_API_BASE = window.STELLAR_API_BASE || 'https://cyber-stellar-it.onrender.com';
 
 const StellarAPI = {
   // Persist token + user info
@@ -79,7 +79,7 @@ const StellarAPI = {
 
   // Where to send users after login (the ERP React app)
   appUrl() {
-    return window.STELLAR_APP_URL || 'http://localhost:5174';
+    return window.STELLAR_APP_URL || 'https://cyber-stellar-it.onrender.com';
   },
 };
 

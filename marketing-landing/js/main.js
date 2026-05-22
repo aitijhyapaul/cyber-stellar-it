@@ -10,7 +10,7 @@ document.querySelectorAll('.feature-card, .process-step, .pricing-card, .section
 });
 const form = document.getElementById('contact-form');
 const alertEl = document.getElementById('alert');
-const API_BASE = window.CSIT_API_BASE || 'http://localhost:8100';
+const API_BASE = window.CSIT_API_BASE || 'https://cyber-stellar-it.onrender.com';
 const SERVICE_SLUG = window.CSIT_SERVICE_SLUG || 'digital-marketing';
 if (form) {
   form.addEventListener('submit', async (e) => {
