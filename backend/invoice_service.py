@@ -5,6 +5,8 @@ Pulls company + bank details from environment (placeholders until user fills in)
 Renders BDT primary with USD shown alongside (using USD_TO_BDT_RATE).
 """
 import os
+import time
+import httpx
 from datetime import datetime
 from io import BytesIO
 
@@ -30,11 +32,26 @@ MUTED = colors.HexColor("#6b7280")
 DARK = colors.HexColor("#111827")
 
 
+_rate_cache: dict = {"rate": None, "fetched_at": 0}
+_RATE_TTL = 3600
+
+
 def _rate() -> float:
+    """Live USD→BDT rate, cached 1hr. Falls back to env/120."""
+    now = time.time()
+    if _rate_cache["rate"] and now - _rate_cache["fetched_at"] < _RATE_TTL:
+        return _rate_cache["rate"]
     try:
-        return float(os.getenv("USD_TO_BDT_RATE", "120.0"))
-    except ValueError:
-        return 120.0
+        r = httpx.get("https://open.er-api.com/v6/latest/USD", timeout=5)
+        rate = float(r.json()["rates"]["BDT"])
+        _rate_cache["rate"] = rate
+        _rate_cache["fetched_at"] = now
+        return rate
+    except Exception:
+        try:
+            return float(os.getenv("USD_TO_BDT_RATE", "120.0"))
+        except ValueError:
+            return 120.0
 
 
 def invoice_number(order) -> str:

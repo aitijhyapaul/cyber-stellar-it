@@ -11,6 +11,8 @@ Flow:
 """
 import os
 import secrets
+import time
+import httpx
 from datetime import datetime
 from typing import Optional
 
@@ -57,12 +59,28 @@ def _bank_details() -> dict:
     }
 
 
+_rate_cache: dict = {"rate": None, "fetched_at": 0}
+_RATE_TTL = 3600  # refresh every 1 hour
+
+
 def _exchange_rate() -> float:
-    """USD → BDT rate. Read from env so admin can keep it current."""
+    """USD → BDT rate — live from exchangerate-api.com, cached 1hr. Falls back to env/120."""
+    now = time.time()
+    if _rate_cache["rate"] and now - _rate_cache["fetched_at"] < _RATE_TTL:
+        return _rate_cache["rate"]
     try:
-        return float(os.getenv("USD_TO_BDT_RATE", "120.0"))
-    except ValueError:
-        return 120.0
+        r = httpx.get("https://open.er-api.com/v6/latest/USD", timeout=5)
+        data = r.json()
+        rate = float(data["rates"]["BDT"])
+        _rate_cache["rate"] = rate
+        _rate_cache["fetched_at"] = now
+        return rate
+    except Exception:
+        # Fall back to env var or default
+        try:
+            return float(os.getenv("USD_TO_BDT_RATE", "120.0"))
+        except ValueError:
+            return 120.0
 
 
 @router.get("/bank-details", response_model=BankDetailsOut)
