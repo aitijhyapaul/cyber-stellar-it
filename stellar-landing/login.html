@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Stellar ERP</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/stellar-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/stellar.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+  <div class="aurora-bg">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/stellar-logo.svg" alt="Stellar" class="nav-logo">
+        <span>Stellar<span class="brand-accent">ERP</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/signup.html">No account? <strong>Start free trial</strong></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="auth-main auth-main-narrow">
+    <div class="container container-narrow">
+      <div class="auth-card auth-card-centered">
+        <div class="auth-logo-wrap">
+          <img src="/assets/stellar-logo.svg" alt="Stellar" class="auth-logo-big">
+        </div>
+        <h1 class="auth-title">Welcome back</h1>
+        <p class="auth-subtitle">Sign in to continue to your dashboard.</p>
+
+        <div id="alert" class="auth-alert" style="display:none;"></div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" required placeholder="you@company.com" autofocus>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-input" type="password" id="password" name="password" required placeholder="Your password">
+          </div>
+
+          <div class="form-row" style="justify-content:flex-end;margin-bottom:1rem;">
+            <a href="#" class="link-muted">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="login-btn">
+            Sign In
+            <span class="btn-arrow">→</span>
+          </button>
+
+          <p class="auth-fineprint">
+            Don't have an account? <a href="/signup.html">Start your free trial</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script>
+    const form = document.getElementById('login-form');
+    const btn = document.getElementById('login-btn');
+    const alertBox = document.getElementById('alert');
+
+    function showAlert(msg, type = 'error') {
+      alertBox.textContent = msg;
+      alertBox.className = `auth-alert auth-alert-${type}`;
+      alertBox.style.display = 'block';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+      btn.disabled = true;
+      btn.innerHTML = 'Signing in...';
+
+      try {
+        await StellarAPI.login({
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value,
+        });
+        showAlert("Signed in! Redirecting...", 'success');
+        setTimeout(() => {
+          window.location.href = StellarAPI.appUrl();
+        }, 800);
+      } catch (err) {
+        showAlert(err.message || 'Could not sign in. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = 'Sign In <span class="btn-arrow">→</span>';
+      }
+    });
+  </script>
+</body>
+</html>

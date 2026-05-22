@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — Cyber Stellar IT</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="theme-purple">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="Cyber Stellar IT" class="nav-logo" style="background:transparent;box-shadow:none;">
+        <span>Cyber Stellar IT</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="auth-card fade-in">
+      <h2>Create your account</h2>
+      <p class="auth-sub">Get started in seconds</p>
+
+      <div id="alerts"></div>
+
+      <form id="signup-form">
+        <div class="form-group">
+          <label class="form-label" for="full_name">Full Name</label>
+          <input class="form-input" type="text" id="full_name" name="full_name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-input" type="password" id="password" name="password" required minlength="6" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="/login.html">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    if (CSIT.Auth.isLoggedIn()) {
+      window.location.href = CSIT.Auth.isAdmin() ? '/admin.html' : '/dashboard.html';
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const btn = e.target.querySelector('button');
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+      try {
+        await CSIT.Auth.register(fd.get('email'), fd.get('full_name'), fd.get('password'));
+        const params = new URLSearchParams(window.location.search);
+        const next = params.get('next') || '/dashboard.html';
+        window.location.href = next;
+      } catch (err) {
+        showAlert(err.message || 'Signup failed', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Sign Up';
+      }
+    });
+  </script>
+</body>
+</html>

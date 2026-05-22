@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Stellar IT — Web Dev, ERP, Marketing & Lead Gen</title>
+  <meta name="description" content="Cyber Stellar IT builds custom websites, deploys production-ready ERP software, runs digital marketing campaigns, and generates qualified leads for growing businesses.">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="theme-cyan">
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="Cyber Stellar IT" class="nav-logo" style="background:transparent;box-shadow:none;">
+        <span>Cyber Stellar IT</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li data-auth="logged-out"><a href="/login.html">Login</a></li>
+        <li data-auth="logged-out"><a href="/signup.html" class="btn btn-primary btn-sm">Get Started</a></li>
+        <li data-auth="logged-in"><a href="/dashboard.html">Dashboard</a></li>
+        <li data-auth="admin"><a href="/admin.html">Admin</a></li>
+        <li data-auth="logged-in"><a href="#" data-action="logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-split hero-animated">
+    <div class="floating-shapes">
+      <div class="floating-shape s1"></div>
+      <div class="floating-shape s2"></div>
+      <div class="floating-shape s3"></div>
+    </div>
+    <div class="container">
+      <div class="hero-split-inner">
+        <div class="hero-split-text">
+          <span class="hero-badge">✨ Building the future of business technology</span>
+          <h1>Software, Marketing &amp; Leads Built for Growth</h1>
+          <p class="hero-subtitle">
+            We build websites, deploy production-ready ERP systems, run high-performing marketing campaigns,
+            and deliver qualified leads — all under one roof.
+          </p>
+          <div class="hero-actions">
+            <a href="/#services" class="btn btn-primary btn-lg">Explore Services</a>
+            <a href="/#contact" class="btn btn-ghost btn-lg">Talk to Us</a>
+          </div>
+        </div>
+        <div class="hero-illustration">
+          <img src="/assets/illustrations/hero-team.png" alt="Team collaborating with ideas">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">What we do</span>
+        <h2 class="section-title">Services that scale your business</h2>
+        <p class="section-subtitle">From your first website to enterprise-grade ERP, we cover every step of your digital journey.</p>
+      </div>
+
+      <div class="services-grid" id="services-grid">
+        <a href="https://web.cyberstellarbd.com" data-sub="web" class="card theme-cyan">
+          <div class="card-icon">🌐</div>
+          <h3 class="card-title">Website Development</h3>
+          <p class="card-desc">Custom HTML/CSS websites and redesigns built to perform on every device.</p>
+          <span class="card-link">Learn more →</span>
+        </a>
+        <a href="https://stellar.cyberstellarbd.com" data-sub="stellar" class="card theme-purple">
+          <div class="card-icon">⚙️</div>
+          <h3 class="card-title">SaaS ERP Software</h3>
+          <p class="card-desc">Production-ready ERP system deployed for your business — inventory, sales, HR & more.</p>
+          <span class="card-link">Learn more →</span>
+        </a>
+        <a href="https://marketing.cyberstellarbd.com" data-sub="marketing" class="card theme-blue">
+          <div class="card-icon">📈</div>
+          <h3 class="card-title">Digital Marketing</h3>
+          <p class="card-desc">SEO, social media management, and paid ad campaigns that drive real results.</p>
+          <span class="card-link">Learn more →</span>
+        </a>
+        <a href="https://leads.cyberstellarbd.com" data-sub="leads" class="card theme-navy">
+          <div class="card-icon">🎯</div>
+          <h3 class="card-title">Lead Generation</h3>
+          <p class="card-desc">Qualified, targeted contact lists delivered to your inbox — ready to convert.</p>
+          <span class="card-link">Learn more →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section section-network" id="about" style="background:var(--bg-secondary);">
+    <div class="container">
+      <div class="section-with-illustration mb-lg">
+        <div>
+          <span class="section-eyebrow">About us</span>
+          <h2 class="section-title">Built for SMEs &amp; Enterprises</h2>
+          <p class="section-subtitle" style="text-align:left;margin-left:0;">
+            We believe every business — from startup to enterprise — deserves world-class digital infrastructure.
+            That's why we build affordable, scalable solutions you can actually use.
+          </p>
+          <p class="mt-md">
+            From custom websites and complete ERP systems to growth marketing and qualified lead lists —
+            we're the one-stop tech partner for businesses ready to scale.
+          </p>
+        </div>
+        <div class="section-illustration">
+          <img src="/assets/illustrations/about-brainstorm.png" alt="Team brainstorming ideas">
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Services</div>
+          <div class="stat-value">4</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Built In-House</div>
+          <div class="stat-value">100%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Custom Solutions</div>
+          <div class="stat-value">Always</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Onboarding</div>
+          <div class="stat-value">Fast</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section section-organic" id="contact">
+    <div class="container-narrow">
+      <div class="section-header">
+        <span class="section-eyebrow">Get in touch</span>
+        <h2 class="section-title">Let's talk about your project</h2>
+        <p class="section-subtitle">Tell us what you're working on — we'll get back within 24 hours.</p>
+      </div>
+
+      <div id="alerts"></div>
+
+      <form id="inquiry-form" class="card">
+        <div class="form-group">
+          <label class="form-label" for="name">Your Name</label>
+          <input class="form-input" type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone (optional)</label>
+          <input class="form-input" type="tel" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service_id">Interested In</label>
+          <select class="form-select" id="service_id" name="service_id">
+            <option value="">Select a service (optional)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-textarea" id="message" name="message" rows="4" required placeholder="Tell us about your project..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="/" class="nav-brand">
+            <img src="/assets/logo.svg" alt="Cyber Stellar IT" class="nav-logo" style="background:transparent;box-shadow:none;">
+            <span>Cyber Stellar IT</span>
+          </a>
+          <p class="footer-brand-desc">Building the digital infrastructure that powers modern business.</p>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="https://web.cyberstellarbd.com" data-sub="web">Website Dev</a></li>
+            <li><a href="https://stellar.cyberstellarbd.com" data-sub="stellar">ERP Software</a></li>
+            <li><a href="https://marketing.cyberstellarbd.com" data-sub="marketing">Marketing</a></li>
+            <li><a href="https://leads.cyberstellarbd.com" data-sub="leads">Lead Gen</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Account</h4>
+          <ul>
+            <li><a href="/login.html">Login</a></li>
+            <li><a href="/signup.html">Sign Up</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="year"></span> Cyber Stellar IT. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Local-dev URL swap — route subdomain links to localhost ports when testing locally
+    (function() {
+      const host = window.location.hostname;
+      if (host === 'localhost' || host === '127.0.0.1') {
+        const portMap = { web: 8201, stellar: 8200, marketing: 8202, leads: 8203 };
+        document.querySelectorAll('a[data-sub]').forEach(a => {
+          const port = portMap[a.dataset.sub];
+          if (port) a.href = `http://localhost:${port}/`;
+        });
+      }
+    })();
+
+    // Load services from backend & populate dropdown
+    (async () => {
+      try {
+        const services = await CSIT.Services.list();
+        const select = document.getElementById('service_id');
+        services.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s.id;
+          opt.textContent = s.name;
+          select.appendChild(opt);
+        });
+      } catch (e) {
+        console.warn('Could not load services:', e);
+      }
+    })();
+
+    // Inquiry form
+    document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const payload = {
+        name: fd.get('name'),
+        email: fd.get('email'),
+        phone: fd.get('phone') || null,
+        message: fd.get('message'),
+        service_id: fd.get('service_id') ? parseInt(fd.get('service_id')) : null,
+      };
+      const btn = e.target.querySelector('button');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        await CSIT.Inquiries.create(payload);
+        showAlert("Thanks! We'll be in touch within 24 hours.", 'success');
+        e.target.reset();
+      } catch (err) {
+        showAlert(err.message || 'Could not submit. Please try again.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  </script>
+</body>
+</html>

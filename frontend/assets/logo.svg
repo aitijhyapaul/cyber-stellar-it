@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="csitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF"/>
+      <stop offset="50%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#A855F7"/>
+    </linearGradient>
+    <linearGradient id="csitGradDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0096C7"/>
+      <stop offset="100%" style="stop-color:#7C3AED"/>
+    </linearGradient>
+    <filter id="csitGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#csitGlow)">
+    <!-- Top face (cyan) -->
+    <polygon points="40,60 100,40 160,60 100,90" fill="url(#csitGrad)" opacity="0.95"/>
+    <!-- Left face -->
+    <polygon points="40,60 100,90 100,180 60,140" fill="url(#csitGradDark)" opacity="0.85"/>
+    <!-- Right face -->
+    <polygon points="160,60 100,90 100,180 140,140" fill="url(#csitGrad)" opacity="0.9"/>
+    <!-- Bottom triangle accent -->
+    <polygon points="80,130 100,180 120,130" fill="#A855F7" opacity="0.95"/>
+    <!-- Outline -->
+    <polygon points="40,60 100,40 160,60 140,140 100,180 60,140" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.6"/>
+  </g>
+</svg>

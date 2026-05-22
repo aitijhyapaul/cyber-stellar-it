@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Checkout — Lead Generation — Cyber Stellar IT</title>
+  <meta name="description" content="Complete your lead generation order securely with card payment.">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    .checkout-page { min-height: calc(100vh - 200px); padding: var(--space-lg) 0; }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+    }
+
+    .summary-card, .payment-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-card-lg);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: var(--text-muted); font-size: 0.95rem; }
+    .summary-row .value { font-weight: 600; color: var(--text-primary); }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0 0;
+      margin-top: 0.5rem;
+      border-top: 2px solid var(--border-strong);
+    }
+    .summary-total .label { font-size: 1.1rem; font-weight: 600; }
+    .summary-total .value {
+      font-size: 2.2rem;
+      font-family: var(--font-display);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .targeting-block {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-top: var(--space-md);
+    }
+    .targeting-block strong { color: var(--text-muted); display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+    .targeting-block p { color: var(--text-secondary); font-size: 0.9rem; white-space: pre-wrap; line-height: 1.5; }
+
+    #card-element {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    #card-element.StripeElement--focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+    #card-element.StripeElement--invalid {
+      border-color: #EF4444;
+    }
+
+    #card-errors {
+      color: #FCA5A5;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      min-height: 1.2em;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: var(--space-md);
+      justify-content: center;
+    }
+    .secure-badge span { font-size: 1.1rem; }
+
+    .test-card-hint {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      margin-bottom: var(--space-md);
+      font-size: 0.85rem;
+    }
+    .test-card-hint strong { color: var(--accent); }
+    .test-card-hint code {
+      background: var(--bg-elevated);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+      color: var(--text-primary);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: var(--space-md);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="aurora-bg"><div class="aurora aurora-1"></div><div class="aurora aurora-2"></div><div class="aurora aurora-3"></div></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="" class="nav-logo">
+        <span>Lead<span class="brand-accent">Gen</span></span>
+        <span class="nav-brand-sub">Secure Checkout</span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="checkout-page">
+    <div class="container">
+      <a href="/#order" class="back-link">← Back to order form</a>
+      <div class="section-header" style="text-align:left; margin-bottom: var(--space-lg);">
+        <span class="section-eyebrow">Complete Your Order</span>
+        <h1 style="font-size: clamp(1.8rem, 4vw, 2.8rem);">Secure checkout</h1>
+        <p class="section-subtitle" style="text-align:left; margin-left:0;">Pay with card to confirm your order. Powered by Stripe.</p>
+      </div>
+
+      <div class="checkout-grid">
+        <!-- Order Summary -->
+        <div class="summary-card">
+          <h3 style="margin-bottom: var(--space-md);">Order Summary</h3>
+
+          <div class="summary-row">
+            <span class="label">Service</span>
+            <span class="value">Qualified Leads</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Customer</span>
+            <span class="value" id="summary-name">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Email</span>
+            <span class="value" id="summary-email">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Quantity</span>
+            <span class="value"><span id="summary-qty">—</span> leads</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Unit price</span>
+            <span class="value">$10.00 / lead</span>
+          </div>
+
+          <div class="summary-total">
+            <span class="label">Total</span>
+            <span class="value">$<span id="summary-total">0</span></span>
+          </div>
+
+          <div class="targeting-block">
+            <strong>Targeting Details</strong>
+            <p id="summary-targeting">—</p>
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="payment-card">
+          <h3 style="margin-bottom: var(--space-md);">Payment Details</h3>
+
+          <div class="test-card-hint">
+            <strong>Test mode:</strong> Use card <code>4242 4242 4242 4242</code> with any future date and any CVC.
+          </div>
+
+          <div id="alert" class="alert hidden"></div>
+
+          <form id="payment-form">
+            <div class="form-group">
+              <label class="form-label" for="card-element">Card Information</label>
+              <div id="card-element"></div>
+              <div id="card-errors" role="alert"></div>
+            </div>
+
+            <button type="submit" id="pay-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: var(--space-md);">
+              <span id="pay-btn-text">Pay $<span id="pay-amount">0</span></span>
+            </button>
+
+            <div class="secure-badge">
+              <span>🔒</span>
+              <span>Secured by Stripe · Your card info never touches our servers</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © <span id="year"></span> Cyber Stellar IT. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const API_BASE = 'http://localhost:8100';
+
+    // Read order data from sessionStorage
+    const orderData = JSON.parse(sessionStorage.getItem('csit_lead_order') || 'null');
+
+    if (!orderData) {
+      // No order data found, redirect back
+      window.location.href = '/#order';
+    }
+
+    // Populate summary
+    document.getElementById('summary-name').textContent = orderData.name;
+    document.getElementById('summary-email').textContent = orderData.email;
+    document.getElementById('summary-qty').textContent = orderData.quantity;
+    document.getElementById('summary-targeting').textContent = orderData.notes || 'No specific targeting provided';
+    document.getElementById('summary-total').textContent = (orderData.quantity * 10).toLocaleString();
+    document.getElementById('pay-amount').textContent = (orderData.quantity * 10).toLocaleString();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    let stripe = null;
+    let card = null;
+    let clientSecret = null;
+
+    async function initStripe() {
+      try {
+        const cfg = await fetch(`${API_BASE}/api/payments/config`).then(r => r.json());
+        if (!cfg.configured) {
+          showError('Payment system is not configured yet. Please contact support.');
+          document.getElementById('pay-btn').disabled = true;
+          return;
+        }
+        stripe = Stripe(cfg.publishable_key);
+        const elements = stripe.elements();
+        card = elements.create('card', {
+          style: {
+            base: {
+              color: '#F8FAFC',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '16px',
+              '::placeholder': { color: '#94A3B8' },
+            },
+            invalid: { color: '#FCA5A5', iconColor: '#FCA5A5' },
+          },
+        });
+        card.mount('#card-element');
+        card.on('change', (event) => {
+          document.getElementById('card-errors').textContent = event.error ? event.error.message : '';
+        });
+      } catch (e) {
+        showError('Could not initialize payment system: ' + e.message);
+      }
+    }
+
+    function showError(msg) {
+      const alert = document.getElementById('alert');
+      alert.textContent = msg;
+      alert.className = 'alert alert-error';
+    }
+
+    function showSuccess(msg) {
+      const alert = document.getElementById('alert');
+      alert.textContent = msg;
+      alert.className = 'alert alert-success';
+    }
+
+    document.getElementById('payment-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('pay-btn');
+      const btnText = document.getElementById('pay-btn-text');
+      const originalText = btnText.innerHTML;
+
+      btn.disabled = true;
+      btnText.innerHTML = '<span class="loading-spinner"></span>Processing...';
+
+      try {
+        // Step 1: Create payment intent on the backend
+        const res = await fetch(`${API_BASE}/api/payments/guest-checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_slug: 'lead-generation',
+            name: orderData.name,
+            email: orderData.email,
+            phone: orderData.phone || null,
+            quantity: orderData.quantity,
+            notes: orderData.notes,
+          }),
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ detail: 'Payment failed' }));
+          throw new Error(err.detail || 'Could not create payment');
+        }
+
+        const { client_secret, order_id, amount } = await res.json();
+
+        // Step 2: Confirm card payment
+        const result = await stripe.confirmCardPayment(client_secret, {
+          payment_method: {
+            card: card,
+            billing_details: {
+              name: orderData.name,
+              email: orderData.email,
+              phone: orderData.phone || undefined,
+            },
+          },
+        });
+
+        if (result.error) {
+          throw new Error(result.error.message);
+        }
+
+        if (result.paymentIntent.status === 'succeeded') {
+          // Store success info and redirect
+          sessionStorage.setItem('csit_payment_success', JSON.stringify({
+            order_id,
+            amount,
+            email: orderData.email,
+            name: orderData.name,
+            quantity: orderData.quantity,
+          }));
+          sessionStorage.removeItem('csit_lead_order');
+          window.location.href = '/success.html';
+        } else {
+          throw new Error('Payment did not complete. Status: ' + result.paymentIntent.status);
+        }
+      } catch (err) {
+        showError(err.message || 'Payment failed. Please try again.');
+        btn.disabled = false;
+        btnText.innerHTML = originalText;
+      }
+    });
+
+    initStripe();
+  </script>
+</body>
+</html>

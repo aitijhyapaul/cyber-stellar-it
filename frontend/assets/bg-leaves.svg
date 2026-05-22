@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="leafGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:0.2"/>
+    </linearGradient>
+    <linearGradient id="leafGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A855F7;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.2"/>
+    </linearGradient>
+    <radialGradient id="bulbGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FBBF24;stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:#FBBF24;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Left side organic leaves (corner decoration) -->
+  <g opacity="0.5">
+    <path d="M 0,400 Q 50,300 100,350 Q 150,400 100,500 Q 50,550 0,500 Z" fill="url(#leafGrad1)">
+      <animateTransform attributeName="transform" type="rotate" values="0 50 425;3 50 425;0 50 425;-3 50 425;0 50 425" dur="8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 0,600 Q 80,550 120,620 Q 130,700 80,720 Q 30,720 0,680 Z" fill="url(#leafGrad2)">
+      <animateTransform attributeName="transform" type="rotate" values="0 60 660;-4 60 660;0 60 660;4 60 660;0 60 660" dur="9s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 50,100 Q 100,50 180,80 Q 200,150 150,180 Q 80,180 50,150 Z" fill="url(#leafGrad1)">
+      <animateTransform attributeName="transform" type="rotate" values="0 115 115;5 115 115;0 115 115;-5 115 115;0 115 115" dur="7s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Right side organic leaves -->
+  <g opacity="0.5">
+    <path d="M 1200,300 Q 1130,250 1100,320 Q 1080,400 1130,420 Q 1170,420 1200,380 Z" fill="url(#leafGrad2)">
+      <animateTransform attributeName="transform" type="rotate" values="0 1140 360;-3 1140 360;0 1140 360;3 1140 360;0 1140 360" dur="8.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 1200,550 Q 1110,500 1080,580 Q 1080,660 1150,680 Q 1200,680 1200,620 Z" fill="url(#leafGrad1)">
+      <animateTransform attributeName="transform" type="rotate" values="0 1140 600;4 1140 600;0 1140 600;-4 1140 600;0 1140 600" dur="9.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 1100,50 Q 1050,80 1080,160 Q 1140,180 1170,140 Q 1180,80 1100,50 Z" fill="url(#leafGrad2)">
+      <animateTransform attributeName="transform" type="rotate" values="0 1125 115;5 1125 115;0 1125 115;-5 1125 115;0 1125 115" dur="10s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Lightbulb/idea glow (centerpiece) -->
+  <g>
+    <circle cx="600" cy="200" r="100" fill="url(#bulbGrad)" opacity="0.4">
+      <animate attributeName="r" values="100;130;100" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Sparkles around the bulb -->
+    <g fill="#FBBF24" opacity="0.8">
+      <circle cx="550" cy="150" r="2">
+        <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="650" cy="180" r="2.5">
+        <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="620" cy="240" r="2">
+        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="580" cy="240" r="2.5">
+        <animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- Floating sparkle particles -->
+  <g fill="#00D4FF" opacity="0.6">
+    <circle cx="300" cy="350" r="2">
+      <animate attributeName="cy" values="350;330;350" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="900" cy="450" r="2">
+      <animate attributeName="cy" values="450;430;450" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="650" r="2">
+      <animate attributeName="cy" values="650;630;650" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750" cy="350" r="3">
+      <animate attributeName="cy" values="350;370;350" dur="5.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

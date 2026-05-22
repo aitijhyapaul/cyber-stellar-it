@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="stellarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D4FF"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="stellarGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer rounded square -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#stellarGrad)" opacity="0.15"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" stroke="url(#stellarGrad)" stroke-width="2"/>
+  <!-- Main star/spark shape -->
+  <path d="M32 12 L37 26 L51 27 L40 36 L44 50 L32 42 L20 50 L24 36 L13 27 L27 26 Z"
+        fill="url(#stellarGrad2)"
+        stroke="url(#stellarGrad)"
+        stroke-width="1.5"
+        stroke-linejoin="round"/>
+  <!-- Center glow dot -->
+  <circle cx="32" cy="32" r="3" fill="#FFFFFF" opacity="0.9"/>
+</svg>

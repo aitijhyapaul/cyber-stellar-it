@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Cyber Stellar IT</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .bank-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border, rgba(255,255,255,0.1));
+    }
+    .bank-tab {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.75rem 1.25rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .bank-tab.active {
+      color: var(--primary, #06b6d4);
+      border-bottom-color: var(--primary, #06b6d4);
+    }
+    .bank-panel { display: none; }
+    .bank-panel.active { display: block; }
+    .bank-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border, rgba(255,255,255,0.06));
+    }
+    .bank-row:last-child { border-bottom: none; }
+    .bank-row .label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .bank-row .value {
+      font-family: monospace;
+      font-weight: 500;
+      text-align: right;
+      word-break: break-all;
+    }
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border, rgba(255,255,255,0.15));
+      color: var(--text-muted);
+      padding: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+    .copy-btn:hover { color: var(--primary, #06b6d4); border-color: var(--primary, #06b6d4); }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--primary, #06b6d4);
+      color: white;
+      font-weight: 700;
+      margin-right: 0.6rem;
+    }
+    .status-box {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .status-awaiting { background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; color: #f59e0b; }
+    .status-paid { background: rgba(16, 185, 129, 0.1); border: 1px solid #10B981; color: #10B981; }
+    .status-rejected { background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #ef4444; }
+  </style>
+</head>
+<body class="theme-cyan">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="Cyber Stellar IT" class="nav-logo" style="background:transparent;box-shadow:none;">
+        <span>Cyber Stellar IT</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/dashboard.html">Dashboard</a></li>
+        <li><a href="#" data-action="logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container section">
+    <div class="container-narrow">
+      <div class="section-header">
+        <span class="section-eyebrow">Checkout</span>
+        <h1>Complete your payment</h1>
+      </div>
+
+      <div id="alerts"></div>
+      <div id="checkout-content"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    if (!requireAuth()) {} else { init(); }
+
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = parseInt(params.get('order'));
+      if (!orderId) {
+        document.getElementById('checkout-content').innerHTML = `
+          <div class="alert alert-error">No order specified.</div>
+          <a href="/dashboard.html" class="btn btn-primary">Back to Dashboard</a>
+        `;
+        return;
+      }
+
+      try {
+        const [order, bank] = await Promise.all([
+          CSIT.Orders.get(orderId),
+          CSIT.Payments.bankDetails(),
+        ]);
+
+        if (order.payment_status === 'paid') {
+          renderPaid(order);
+          return;
+        }
+        if (!order.amount || order.amount <= 0) {
+          renderAwaitingQuote();
+          return;
+        }
+        renderBankTransfer(order, bank);
+      } catch (e) {
+        document.getElementById('checkout-content').innerHTML = `
+          <div class="alert alert-error">${escapeHtml(e.message)}</div>
+          <a href="/dashboard.html" class="btn btn-primary">Back to Dashboard</a>
+        `;
+      }
+    }
+
+    function renderPaid(order) {
+      document.getElementById('checkout-content').innerHTML = `
+        <div class="status-box status-paid">
+          <h3 style="margin:0;">✅ Payment Verified</h3>
+          <p style="margin:0.5rem 0 0;color:inherit;opacity:0.9;">Order #${order.id} is paid in full. We've started working on your service.</p>
+        </div>
+        <a href="${CSIT.Payments.invoiceUrl(order.id)}" target="_blank" class="btn btn-secondary btn-block mb-md">📄 Download Invoice (PDF)</a>
+        <a href="/dashboard.html" class="btn btn-primary btn-block">Back to Dashboard</a>
+      `;
+    }
+
+    function renderAwaitingQuote() {
+      document.getElementById('checkout-content').innerHTML = `
+        <div class="card text-center">
+          <h3 class="mb-sm">⏳ Awaiting Quote</h3>
+          <p class="text-muted mb-md">This order doesn't have a final price yet. Our team is reviewing your request and will send you a quote within 24-48 hours.</p>
+          <a href="/dashboard.html" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+      `;
+    }
+
+    function bankRows(obj) {
+      const labels = {
+        bank_name: 'Bank',
+        account_name: 'Account Name',
+        account_number: 'Account Number',
+        branch: 'Branch',
+        routing_number: 'Routing',
+        swift_code: 'SWIFT / BIC',
+        bank_address: 'Bank Address',
+        currency: 'Currency',
+      };
+      return Object.entries(obj).map(([k, v]) => `
+        <div class="bank-row">
+          <span class="label">${labels[k] || k}</span>
+          <span class="value">
+            ${escapeHtml(v || '—')}
+            ${v && !String(v).startsWith('TODO') ? `<button class="copy-btn" onclick="copyText(this, ${JSON.stringify(String(v))})">Copy</button>` : ''}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function renderBankTransfer(order, bank) {
+      const statusBlock = order.payment_status === 'awaiting_verification' ? `
+        <div class="status-box status-awaiting">
+          <h3 style="margin:0;">⏳ Payment Under Review</h3>
+          <p style="margin:0.5rem 0 0;color:inherit;opacity:0.9;">
+            We received your transfer reference <strong style="font-family:monospace;">${escapeHtml(order.transfer_reference)}</strong>.
+            We'll verify it against our bank statement (usually within 1 business day) and email you once confirmed.
+          </p>
+        </div>
+      ` : order.payment_status === 'rejected' ? `
+        <div class="status-box status-rejected">
+          <h3 style="margin:0;">✖ Payment Rejected</h3>
+          <p style="margin:0.5rem 0 0;color:inherit;opacity:0.9;">
+            ${escapeHtml(order.rejection_reason || 'Please re-submit with the correct transfer reference.')}
+          </p>
+        </div>
+      ` : '';
+
+      const showForm = order.payment_status === 'pending' || order.payment_status === 'rejected';
+
+      document.getElementById('checkout-content').innerHTML = `
+        ${statusBlock}
+
+        <div class="card mb-md">
+          <h3 class="mb-md">Order Summary</h3>
+          <div class="flex-between mb-sm">
+            <span class="text-muted">Service</span>
+            <strong>${escapeHtml(order.service ? order.service.name : 'Service')}</strong>
+          </div>
+          <div class="flex-between mb-sm">
+            <span class="text-muted">Order ID</span>
+            <strong>#${order.id}</strong>
+          </div>
+          <div class="flex-between" style="padding-top:1rem;border-top:1px solid var(--border);">
+            <strong style="font-size:1.2rem;">Total Due</strong>
+            <strong style="font-size:1.5rem;color:var(--accent);">${formatPrice(order.amount, order.currency)}</strong>
+          </div>
+          <div style="margin-top:0.75rem;">
+            <a href="${CSIT.Payments.invoiceUrl(order.id)}" target="_blank" class="btn btn-secondary btn-block">📄 Download Invoice (PDF)</a>
+          </div>
+        </div>
+
+        <div class="card mb-md">
+          <h3 class="mb-sm"><span class="step-num">1</span>Send payment to one of our accounts</h3>
+          <p class="text-muted" style="font-size:0.9rem;">${escapeHtml(bank.notes || '')}</p>
+
+          <div class="bank-tabs">
+            <button class="bank-tab active" data-bank="local">🇧🇩 Local (BDT)</button>
+            <button class="bank-tab" data-bank="international">🌐 International (USD)</button>
+          </div>
+
+          <div class="bank-panel active" data-bank-panel="local">
+            ${bankRows(bank.local)}
+          </div>
+          <div class="bank-panel" data-bank-panel="international">
+            ${bankRows(bank.international)}
+          </div>
+
+          <div class="alert alert-info" style="margin-top:1rem;">
+            <strong>Important:</strong> Include <code>Order #${order.id}</code> in the transfer memo so we can match your payment.
+          </div>
+        </div>
+
+        ${showForm ? `
+          <div class="card">
+            <h3 class="mb-sm"><span class="step-num">2</span>Submit your transfer reference</h3>
+            <p class="text-muted mb-md" style="font-size:0.9rem;">Once you've made the transfer, fill in the details below so we can verify it.</p>
+
+            <div class="form-group">
+              <label class="form-label">Payment Method</label>
+              <select class="form-select" id="pay-method">
+                <option value="bank_transfer">Bank Transfer (Local BDT)</option>
+                <option value="wire_transfer">Wire Transfer (International USD)</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Transfer Reference / Transaction ID *</label>
+              <input class="form-input" id="pay-ref" placeholder="e.g. TXN20260522001 or wire confirmation #">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Transfer Date</label>
+              <input class="form-input" type="date" id="pay-date" value="${new Date().toISOString().slice(0,10)}">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Notes (optional)</label>
+              <textarea class="form-textarea" id="pay-notes" rows="2" placeholder="e.g. Sent from XYZ Bank, sender name on transfer"></textarea>
+            </div>
+
+            <button id="submit-payment" class="btn btn-primary btn-block btn-lg">Submit Transfer for Verification</button>
+          </div>
+        ` : ''}
+      `;
+
+      // Tab switching
+      document.querySelectorAll('.bank-tab').forEach(t => {
+        t.addEventListener('click', () => {
+          document.querySelectorAll('.bank-tab').forEach(x => x.classList.remove('active'));
+          document.querySelectorAll('.bank-panel').forEach(x => x.classList.remove('active'));
+          t.classList.add('active');
+          document.querySelector(`[data-bank-panel="${t.dataset.bank}"]`).classList.add('active');
+        });
+      });
+
+      // Submit handler
+      const btn = document.getElementById('submit-payment');
+      if (btn) {
+        btn.addEventListener('click', async () => {
+          const ref = document.getElementById('pay-ref').value.trim();
+          if (!ref) {
+            showAlert('Please enter your transfer reference', 'error');
+            return;
+          }
+          btn.disabled = true;
+          btn.textContent = 'Submitting...';
+          try {
+            await CSIT.Payments.submit(
+              order.id,
+              document.getElementById('pay-method').value,
+              ref,
+              document.getElementById('pay-date').value || null,
+              document.getElementById('pay-notes').value || null,
+            );
+            showAlert('Payment submitted! We\'ll verify and confirm within 1 business day.', 'success');
+            setTimeout(() => window.location.reload(), 1500);
+          } catch (e) {
+            showAlert(e.message, 'error');
+            btn.disabled = false;
+            btn.textContent = 'Submit Transfer for Verification';
+          }
+        });
+      }
+    }
+
+    window.copyText = function(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copied';
+        setTimeout(() => { btn.textContent = orig; }, 1200);
+      });
+    }
+  </script>
+</body>
+</html>

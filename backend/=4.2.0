@@ -1,0 +1,12 @@
+Collecting reportlab
+  Downloading reportlab-4.5.1-py3-none-any.whl.metadata (1.7 kB)
+WARNING: Cache entry deserialization failed, entry ignored
+Collecting pillow>=9.0.0 (from reportlab)
+  Using cached pillow-12.2.0-cp314-cp314-win_amd64.whl.metadata (9.0 kB)
+Requirement already satisfied: charset-normalizer in .\venv\Lib\site-packages (from reportlab) (3.4.7)
+Downloading reportlab-4.5.1-py3-none-any.whl (2.0 MB)
+   ---------------------------------------- 2.0/2.0 MB 5.3 MB/s  0:00:00
+Using cached pillow-12.2.0-cp314-cp314-win_amd64.whl (7.2 MB)
+Installing collected packages: pillow, reportlab
+
+Successfully installed pillow-12.2.0 reportlab-4.5.1

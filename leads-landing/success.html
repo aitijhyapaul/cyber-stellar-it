@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful — Cyber Stellar IT</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <style>
+    .success-page {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg) 0;
+    }
+
+    .success-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      box-shadow: var(--shadow-card-lg);
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto var(--space-md);
+      background: linear-gradient(135deg, #10B981, #14B8A6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+      animation: pulse-success 2s ease-in-out infinite;
+      box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+    }
+    @keyframes pulse-success {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .success-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-subtitle {
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .order-details {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+      text-align: left;
+    }
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .order-row:last-child { border-bottom: none; }
+    .order-row .label { color: var(--text-muted); }
+    .order-row .value { font-weight: 600; }
+    .order-row .value.amount { color: var(--accent); font-size: 1.1rem; }
+
+    .next-steps {
+      text-align: left;
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+    .next-steps h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+    .next-steps ol {
+      padding-left: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .actions .btn { flex: 1; }
+    @media (max-width: 600px) {
+      .actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora-bg"><div class="aurora aurora-1"></div><div class="aurora aurora-2"></div><div class="aurora aurora-3"></div></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="" class="nav-logo">
+        <span>Lead<span class="brand-accent">Gen</span></span>
+        <span class="nav-brand-sub">by Cyber Stellar IT</span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="success-page">
+    <div class="container">
+      <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">Payment Successful!</h1>
+        <p class="success-subtitle">Your order has been confirmed. A receipt has been sent to your email.</p>
+
+        <div class="order-details" id="order-details">
+          <div class="order-row">
+            <span class="label">Order ID</span>
+            <span class="value">#<span id="order-id">—</span></span>
+          </div>
+          <div class="order-row">
+            <span class="label">Customer</span>
+            <span class="value" id="customer-name">—</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Email</span>
+            <span class="value" id="customer-email">—</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Quantity</span>
+            <span class="value"><span id="lead-quantity">—</span> leads</span>
+          </div>
+          <div class="order-row">
+            <span class="label">Amount Paid</span>
+            <span class="value amount">$<span id="amount-paid">—</span></span>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h3>What happens next?</h3>
+          <ol>
+            <li>Our team will start verifying contacts based on your targeting criteria.</li>
+            <li>Quality checks and email/phone validation (3-5 business days).</li>
+            <li>Your CSV/Excel file delivered to your email inbox.</li>
+            <li>Free replacement for any bad leads — just reply to the receipt.</li>
+          </ol>
+        </div>
+
+        <div class="actions">
+          <a href="/" class="btn btn-ghost">Back to Home</a>
+          <a href="mailto:hello@cyberstellarbd.com" class="btn btn-primary">Contact Support</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        © <span id="year"></span> Cyber Stellar IT. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const data = JSON.parse(sessionStorage.getItem('csit_payment_success') || 'null');
+
+    if (!data) {
+      // No payment info, redirect home
+      window.location.href = '/';
+    } else {
+      document.getElementById('order-id').textContent = data.order_id;
+      document.getElementById('customer-name').textContent = data.name;
+      document.getElementById('customer-email').textContent = data.email;
+      document.getElementById('lead-quantity').textContent = data.quantity;
+      document.getElementById('amount-paid').textContent = Number(data.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  </script>
+</body>
+</html>

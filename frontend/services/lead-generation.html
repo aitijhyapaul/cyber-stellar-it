@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead Generation — Cyber Stellar IT</title>
+  <meta name="description" content="Qualified, targeted contact lists delivered to your inbox — ready to convert.">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="theme-navy" data-service-slug="lead-generation" data-service-icon="🎯">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="Cyber Stellar IT" class="nav-logo" style="background:transparent;box-shadow:none;">
+        <span>Cyber Stellar IT</span>
+      </a>
+      <button class="nav-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li data-auth="logged-out"><a href="/login.html">Login</a></li>
+        <li data-auth="logged-out"><a href="/signup.html" class="btn btn-primary btn-sm">Get Started</a></li>
+        <li data-auth="logged-in"><a href="/dashboard.html">Dashboard</a></li>
+        <li data-auth="admin"><a href="/admin.html">Admin</a></li>
+        <li data-auth="logged-in"><a href="#" data-action="logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="service-content">
+    <section class="service-hero container">
+      <div class="spinner"></div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year"></span> Cyber Stellar IT. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/service-page.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

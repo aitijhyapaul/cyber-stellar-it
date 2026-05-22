@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stellar — Modern ERP Built for Growing Businesses</title>
+  <meta name="description" content="Stellar is a production-ready multi-tenant ERP for manufacturing, retail, and service businesses. Manage inventory, sales, HR, and finance from one platform.">
+  <link rel="icon" type="image/svg+xml" href="/assets/stellar-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/stellar.css">
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="aurora-bg">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/stellar-logo.svg" alt="Stellar" class="nav-logo">
+        <span>Stellar<span class="brand-accent">ERP</span></span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="/login.html" class="btn-nav-ghost">Sign In</a></li>
+        <li><a href="/signup.html" class="btn-nav-primary">Start Free Trial</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <span class="hero-badge">
+            <span class="badge-dot"></span>
+            Now in early access · 50% off first year
+          </span>
+          <h1>The ERP that<br><span class="gradient-text">grows with you</span></h1>
+          <p class="hero-subtitle">
+            Stellar is a complete, multi-tenant ERP built for modern businesses.
+            Inventory, sales, HR, accounting, and CRM — all in one place, ready in minutes.
+          </p>
+          <div class="hero-actions">
+            <a href="/signup.html" class="btn btn-primary btn-lg">
+              Start 14-Day Free Trial
+              <span class="btn-arrow">→</span>
+            </a>
+            <a href="#demo" class="btn btn-ghost btn-lg">
+              <span class="play-icon">▶</span>
+              Watch Demo
+            </a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-item">
+              <span class="trust-icon">✓</span>
+              No credit card required
+            </div>
+            <div class="trust-item">
+              <span class="trust-icon">✓</span>
+              Setup in 5 minutes
+            </div>
+            <div class="trust-item">
+              <span class="trust-icon">✓</span>
+              Cancel anytime
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="dashboard-mockup">
+            <div class="mockup-header">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+              <span class="mockup-title">Stellar Dashboard</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-sidebar">
+                <div class="sidebar-item active">📊 Overview</div>
+                <div class="sidebar-item">📦 Inventory</div>
+                <div class="sidebar-item">💰 Sales</div>
+                <div class="sidebar-item">👥 HR</div>
+                <div class="sidebar-item">📈 Reports</div>
+              </div>
+              <div class="mockup-content">
+                <div class="stat-row">
+                  <div class="mini-stat">
+                    <div class="mini-label">Revenue</div>
+                    <div class="mini-value">$284K</div>
+                    <div class="mini-trend up">↑ 12.4%</div>
+                  </div>
+                  <div class="mini-stat">
+                    <div class="mini-label">Orders</div>
+                    <div class="mini-value">1,847</div>
+                    <div class="mini-trend up">↑ 8.2%</div>
+                  </div>
+                  <div class="mini-stat">
+                    <div class="mini-label">Stock</div>
+                    <div class="mini-value">12.4K</div>
+                    <div class="mini-trend">→</div>
+                  </div>
+                </div>
+                <div class="chart-area">
+                  <svg viewBox="0 0 300 120" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,90 L40,75 L80,82 L120,55 L160,60 L200,40 L240,45 L280,25 L300,30 L300,120 L0,120 Z" fill="url(#chartFill)"/>
+                    <path d="M0,90 L40,75 L80,82 L120,55 L160,60 L200,40 L240,45 L280,25 L300,30" stroke="#00D4FF" stroke-width="2" fill="none"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="floating-card floating-card-1">
+            <div class="fc-icon">⚡</div>
+            <div class="fc-text">
+              <div class="fc-title">Real-time sync</div>
+              <div class="fc-sub">All devices</div>
+            </div>
+          </div>
+          <div class="floating-card floating-card-2">
+            <div class="fc-icon">🔒</div>
+            <div class="fc-text">
+              <div class="fc-title">Bank-grade security</div>
+              <div class="fc-sub">SOC 2 ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted By -->
+  <section class="trusted-section">
+    <div class="container">
+      <p class="trusted-label">Built for businesses of every size</p>
+      <div class="trusted-grid">
+        <div class="trusted-item">🏭 Manufacturing</div>
+        <div class="trusted-item">👕 Fashion</div>
+        <div class="trusted-item">🛒 Retail</div>
+        <div class="trusted-item">🏗️ Construction</div>
+        <div class="trusted-item">🍕 F&amp;B</div>
+        <div class="trusted-item">💼 Services</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Why Stellar</span>
+        <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
+        <p class="section-subtitle">Stop juggling spreadsheets and disconnected tools. Stellar brings every part of your business into one beautifully designed platform.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrap accent-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3>Lightning Fast</h3>
+          <p>Built on modern infrastructure. Pages load instantly. Reports generate in seconds, not minutes.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap accent-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <h3>Truly Modular</h3>
+          <p>Turn modules on or off as you grow. Pay only for what you use. No bloat, no forced features.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap accent-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Multi-Tenant Ready</h3>
+          <p>Manage multiple locations, branches, or companies from one account with complete data isolation.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap accent-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </div>
+          <h3>Bank-Grade Security</h3>
+          <p>End-to-end encryption, role-based access control, and audit logs on every action.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap accent-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v6m0 8v6M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6"/>
+            </svg>
+          </div>
+          <h3>Integrations</h3>
+          <p>Connects to Stripe, payment gateways, shipping providers, accounting tools, and more.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap accent-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+          </div>
+          <h3>Expert Support</h3>
+          <p>Real humans, not bots. Our team helps you migrate, configure, and grow — at no extra cost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="section section-dark" id="modules">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Modules</span>
+        <h2 class="section-title">One platform.<br>Every department.</h2>
+        <p class="section-subtitle">Mix and match modules to fit your workflow. Add more as you grow.</p>
+      </div>
+
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-emoji">📦</div>
+          <h3>Inventory</h3>
+          <p>Stock tracking, multi-warehouse, low-stock alerts, batch & serial numbers, reorder points.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">💰</div>
+          <h3>Sales &amp; POS</h3>
+          <p>Quotes, invoices, recurring billing, payment tracking, integrated point-of-sale.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">🛒</div>
+          <h3>Purchasing</h3>
+          <p>Vendor management, purchase orders, RFQs, goods receipt, three-way matching.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">👥</div>
+          <h3>HR &amp; Payroll</h3>
+          <p>Employee records, attendance, leave management, payroll, performance tracking.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">📊</div>
+          <h3>Accounting</h3>
+          <p>General ledger, accounts payable/receivable, tax management, financial reports.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">🤝</div>
+          <h3>CRM</h3>
+          <p>Lead pipeline, contact management, deal tracking, email sync, activity timeline.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">🏭</div>
+          <h3>Manufacturing</h3>
+          <p>Bill of materials, production planning, work orders, quality control, shop floor.</p>
+        </div>
+        <div class="module-card">
+          <div class="module-emoji">📈</div>
+          <h3>Reports &amp; BI</h3>
+          <p>Custom dashboards, KPI tracking, scheduled reports, drill-down analytics, exports.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Pricing</span>
+        <h2 class="section-title">Simple, transparent pricing</h2>
+        <p class="section-subtitle">Start free. Scale as you grow. No hidden fees.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-badge">Starter</div>
+          <div class="pricing-price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">29</span>
+            <span class="price-period">/month</span>
+          </div>
+          <p class="pricing-desc">Perfect for small teams getting started.</p>
+          <ul class="pricing-features">
+            <li>Up to 5 users</li>
+            <li>3 core modules</li>
+            <li>5 GB storage</li>
+            <li>Email support</li>
+            <li>Basic reports</li>
+          </ul>
+          <a href="/signup.html?plan=starter" class="btn btn-ghost btn-block">Start Free Trial</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="pricing-tag">Most Popular</div>
+          <div class="pricing-badge">Growth</div>
+          <div class="pricing-price">
+            <span class="price-currency">$</span>
+            <span class="price-amount">99</span>
+            <span class="price-period">/month</span>
+          </div>
+          <p class="pricing-desc">For growing businesses ready to scale.</p>
+          <ul class="pricing-features">
+            <li>Up to 25 users</li>
+            <li>All modules included</li>
+            <li>100 GB storage</li>
+            <li>Priority support</li>
+            <li>Advanced reports &amp; BI</li>
+            <li>API access</li>
+            <li>Custom workflows</li>
+          </ul>
+          <a href="/signup.html?plan=growth" class="btn btn-primary btn-block">Start Free Trial</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-badge">Enterprise</div>
+          <div class="pricing-price">
+            <span class="price-amount price-custom">Custom</span>
+          </div>
+          <p class="pricing-desc">For large organizations with custom needs.</p>
+          <ul class="pricing-features">
+            <li>Unlimited users</li>
+            <li>All modules + custom dev</li>
+            <li>Unlimited storage</li>
+            <li>24/7 dedicated support</li>
+            <li>SSO, SAML, on-prem options</li>
+            <li>Custom integrations</li>
+            <li>SLA guarantee</li>
+          </ul>
+          <a href="/signup.html?plan=enterprise" class="btn btn-ghost btn-block">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-dark" id="faq">
+    <div class="container container-narrow">
+      <div class="section-header">
+        <span class="section-eyebrow">FAQ</span>
+        <h2 class="section-title">Questions, answered.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How long does setup take?</summary>
+          <p>Most businesses are up and running in under an hour. Our team can also assist with full data migration from your existing systems at no extra cost on Growth and Enterprise plans.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I migrate data from my current system?</summary>
+          <p>Yes — we provide migration tools and assistance for moving data from Excel, QuickBooks, Tally, Zoho, SAP, and most popular ERPs.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is my data secure?</summary>
+          <p>Absolutely. We use end-to-end encryption, multi-tenant data isolation, role-based access, daily backups, and follow industry-standard security practices. Enterprise plans include compliance certifications.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I use Stellar offline?</summary>
+          <p>Stellar is cloud-first for real-time sync, but core POS and inventory functions work offline and sync when you reconnect. We also offer self-hosted options for Enterprise customers.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if I need a custom module?</summary>
+          <p>Our team can build custom modules for your specific workflow on Growth and Enterprise plans. We've built everything from custom manufacturing pipelines to specialized accounting integrations.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you offer training?</summary>
+          <p>Yes! Every plan includes onboarding sessions, video tutorials, and documentation. Growth and Enterprise customers get personalized training for their team.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Ready to run your business better?</h2>
+        <p>Join growing businesses using Stellar to streamline operations and unlock new growth.</p>
+        <div class="hero-actions">
+          <a href="/signup.html" class="btn btn-primary btn-lg">Start Free 14-Day Trial</a>
+          <a href="#" class="btn btn-ghost btn-lg">Book a Demo</a>
+        </div>
+        <p class="cta-fineprint">No credit card required · Full access · Cancel anytime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand">
+            <img src="/assets/stellar-logo.svg" alt="Stellar" class="nav-logo">
+            <span>Stellar<span class="brand-accent">ERP</span></span>
+          </a>
+          <p class="footer-tagline">The ERP that grows with you.</p>
+          <p class="footer-by">A product by <a href="https://cyberstellarbd.com">Cyber Stellar IT</a></p>
+        </div>
+        <div>
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#modules">Modules</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#">Roadmap</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Migration Guides</a></li>
+            <li><a href="#">Status</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="https://cyberstellarbd.com">Cyber Stellar IT</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="year"></span> Stellar by Cyber Stellar IT. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

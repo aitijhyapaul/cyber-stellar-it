@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Cyber Stellar IT</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="theme-cyan">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo.svg" alt="Cyber Stellar IT" class="nav-logo" style="background:transparent;box-shadow:none;">
+        <span>Cyber Stellar IT</span>
+      </a>
+      <button class="nav-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#services">Services</a></li>
+        <li data-auth="admin"><a href="/admin.html">Admin</a></li>
+        <li><a href="#" data-action="logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container section">
+    <div class="flex-between mb-lg" style="flex-wrap:wrap;gap:1rem;">
+      <div>
+        <h1>My Dashboard</h1>
+        <p class="text-muted" id="user-greeting">Welcome back</p>
+      </div>
+      <a href="/#services" class="btn btn-primary">+ New Order</a>
+    </div>
+
+    <div id="alerts"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="orders">My Orders</button>
+      <button class="tab" data-tab="profile">Profile</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-orders">
+      <div id="orders-list">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-profile">
+      <div class="card">
+        <h3 class="mb-md">Account Info</h3>
+        <div id="profile-info"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    if (!requireAuth()) {} else {
+      init();
+    }
+
+    // Tabs
+    document.querySelectorAll('.tab').forEach(t => {
+      t.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+      });
+    });
+
+    function statusBadge(status) {
+      const map = {
+        pending: 'badge-pending',
+        confirmed: 'badge-confirmed',
+        in_progress: 'badge-progress',
+        completed: 'badge-completed',
+        cancelled: 'badge-cancelled',
+        paid: 'badge-paid',
+        failed: 'badge-failed',
+      };
+      return `<span class="badge ${map[status] || ''}">${escapeHtml(status.replace('_', ' '))}</span>`;
+    }
+
+    async function init() {
+      const user = CSIT.getUser();
+      document.getElementById('user-greeting').textContent = `Welcome back, ${user.full_name}`;
+
+      // Profile tab
+      document.getElementById('profile-info').innerHTML = `
+        <div class="form-group">
+          <div class="form-label">Name</div>
+          <div>${escapeHtml(user.full_name)}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Email</div>
+          <div>${escapeHtml(user.email)}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Account Type</div>
+          <div>${user.is_admin ? '<span class="badge badge-confirmed">Admin</span>' : '<span class="badge badge-new">Customer</span>'}</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Member Since</div>
+          <div>${formatDate(user.created_at)}</div>
+        </div>
+      `;
+
+      // Orders
+      try {
+        const orders = await CSIT.Orders.myOrders();
+        const list = document.getElementById('orders-list');
+        if (orders.length === 0) {
+          list.innerHTML = `
+            <div class="card text-center">
+              <h3 class="mb-sm">No orders yet</h3>
+              <p class="text-muted mb-md">Browse our services and place your first order.</p>
+              <a href="/#services" class="btn btn-primary">Explore Services</a>
+            </div>
+          `;
+          return;
+        }
+        list.innerHTML = `
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Service</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Payment</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                ${orders.map(o => `
+                  <tr>
+                    <td>#${o.id}</td>
+                    <td>${escapeHtml(o.service ? o.service.name : '—')}</td>
+                    <td>${formatPrice(o.amount, o.currency)}</td>
+                    <td>${statusBadge(o.status)}</td>
+                    <td>${statusBadge(o.payment_status)}</td>
+                    <td>${formatDate(o.created_at)}</td>
+                    <td>
+                      <div style="display:flex;gap:0.25rem;flex-wrap:wrap;">
+                        ${o.amount > 0 ? `<a href="${CSIT.Payments.invoiceUrl(o.id)}" target="_blank" class="btn btn-secondary btn-sm">📄 Invoice</a>` : ''}
+                        ${o.amount && (o.payment_status === 'pending' || o.payment_status === 'rejected')
+                          ? `<a href="/checkout.html?order=${o.id}" class="btn btn-primary btn-sm">Pay Now</a>`
+                          : ''}
+                        ${o.payment_status === 'awaiting_verification'
+                          ? `<a href="/checkout.html?order=${o.id}" class="btn btn-secondary btn-sm" style="color:#f59e0b;border-color:#f59e0b;">⏳ Pending Review</a>`
+                          : ''}
+                      </div>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } catch (err) {
+        document.getElementById('orders-list').innerHTML = `<div class="alert alert-error">${escapeHtml(err.message)}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
