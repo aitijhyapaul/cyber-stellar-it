@@ -1,5 +1,5 @@
 // Cyber Stellar IT — API client
-const API_BASE = window.location.origin;
+const API_BASE = 'https://cyber-stellar-it.onrender.com';
 
 function getToken() {
   return localStorage.getItem('csit_token');
